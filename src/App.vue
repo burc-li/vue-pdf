@@ -14,11 +14,11 @@ import Header from '@/components/Header.vue'
 
 <style lang="less" scoped>
 .app {
-  // width: 100vw;
-  // height: 100vh;
+  width: 100vw;
+  height: 100vh;
   .content{
     padding: 14px 16px;
-    // height: calc(100% - @nav-height);
+    height: calc(100% - @nav-height);
     overflow: auto;
   }
 }

@@ -16,18 +16,17 @@ import { jsPDF } from 'jspdf'
 // html2canvas + jsPDF 下载PDF
 // 一张长长的PDF
 const downLoadPdfSingle = () => {
-  html2canvas(document.body, {
-    scale: window.devicePixelRatio * 2, // 使用设备的像素比 * 2
-  }).then(canvas => {
+  const ele = document.querySelector('.container')
+  html2canvas(ele).then(canvas => {
     // 返回图片dataURL，参数：图片格式和清晰度(0-1)
     const pageData = canvas.toDataURL('image/jpeg', 1.0)
 
-    // 方向纵向，尺寸ponits，纸张格式A4 即 [595.28, 841.89]
-    const A4Width = 595.28 // A4纸宽度
-    const pdf = new jsPDF('portrait', 'pt', [
-      A4Width,
-      (A4Width * canvas.height) / canvas.width,
-    ])
+    // 方向纵向，尺寸ponits，纸张格式 a4 即 [595.28, 841.89]
+    const A4Width = 595.28
+    const A4Height = 841.89 // A4纸宽
+    const pageHeight = A4Height >= A4Width * canvas.height / canvas.width ? A4Height :  A4Width * canvas.height / canvas.width
+    const pdf = new jsPDF('portrait', 'pt', [A4Width, pageHeight])
+    
     // addImage后两个参数控制添加图片的尺寸，此处将页面高度按照a4纸宽高比列进行压缩
     pdf.addImage(
       pageData,
@@ -35,16 +34,16 @@ const downLoadPdfSingle = () => {
       0,
       0,
       A4Width,
-      (A4Width * canvas.height) / canvas.width,
+      A4Width * canvas.height / canvas.width,
     )
-    pdf.save('html2canvas+jsPDF下载PDF.pdf')
+    pdf.save('单页下载.pdf')
   })
 }
 
 // html2canvas + jsPDF 下载PDF
 // 分页的PDF
 const downLoadPdfMultiple = () => {
-  const ele = document.body
+  const ele = document.querySelector('.container')
   html2canvas(ele, {
     scale: window.devicePixelRatio * 2, // 使用设备的像素比 * 2
   }).then(canvas => {
@@ -83,7 +82,7 @@ const downLoadPdfMultiple = () => {
   })
 }
 
-const number = 30
+const number = 15
 const pageList = ref([])
 const paragraph = {
   text: 'html2canvas 是一个 HTML 渲染器。该脚本允许你直接在用户浏览器截取页面或部分网页的“屏幕截屏”，屏幕截图是基于 DOM，因此生成的图片并不一定 100% 一致，因为它没有制作实际的屏幕截图，而是根据页面上可用的信息构建屏幕截图，因此生成的图片并不一定 100% 一致，因为它没有制作实际的屏幕截图，而是根据页面上可用的信息构建屏幕截图',
@@ -97,7 +96,11 @@ onBeforeMount(() => {
 })
 </script>
 <style lang="less" scoped>
+@width: 800px;
 .container {
+  width: @width;
+  margin: 0 auto;
+  padding: 18px;
   .btn {
     display: inline-block;
     padding: 8px 12px;
@@ -116,7 +119,7 @@ onBeforeMount(() => {
   }
   .image {
     width: 400px;
-    height: 400px;
+    height: 100px;
     margin-bottom: 12px;
   }
 }
