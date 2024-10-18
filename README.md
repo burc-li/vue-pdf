@@ -1,5 +1,7 @@
 # vue-pdf
 
+有个新需求，当点击【下载】按钮时，直接将当前 html页面下载为 PDF。通过 html2canvas + jsPDF 可实现PDF单页下载，甚至是多页下载，记录分享一下~ 最后有样式源码，可自取🫡
+
 ## 安装
 
 ```sh
@@ -11,8 +13,6 @@ npm install
 ```sh
 npm run dev
 ```
-
-有个新需求，当点击【下载】按钮时，直接将当前 html页面下载为 PDF。通过 html2canvas + jsPDF 可实现PDF单页下载，甚至是多页下载，记录分享一下~ 最后有样式源码，可自取🫡
 
 # html2canvas
 
