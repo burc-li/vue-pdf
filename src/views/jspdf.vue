@@ -17,7 +17,7 @@ import { jsPDF } from 'jspdf'
 // 一张长长的PDF
 const downLoadPdfSingle = () => {
   html2canvas(document.body, {
-    scale: 2, // 使用设备的像素比
+    scale: window.devicePixelRatio * 2, // 使用设备的像素比 * 2
   }).then(canvas => {
     // 返回图片dataURL，参数：图片格式和清晰度(0-1)
     const pageData = canvas.toDataURL('image/jpeg', 1.0)
@@ -28,7 +28,6 @@ const downLoadPdfSingle = () => {
       A4Width,
       (A4Width * canvas.height) / canvas.width,
     ])
-
     // addImage后两个参数控制添加图片的尺寸，此处将页面高度按照a4纸宽高比列进行压缩
     pdf.addImage(
       pageData,
@@ -47,7 +46,7 @@ const downLoadPdfSingle = () => {
 const downLoadPdfMultiple = () => {
   const ele = document.body
   html2canvas(ele, {
-    scale: 2, // 使用设备的像素比
+    scale: window.devicePixelRatio * 2, // 使用设备的像素比 * 2
   }).then(canvas => {
     let position = 0 //页面偏移
     const A4Width = 595.28 // A4纸宽度

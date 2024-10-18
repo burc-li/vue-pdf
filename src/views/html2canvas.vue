@@ -16,9 +16,8 @@ import html2canvas from 'html2canvas'
 const capture = () => {
   const ele = document.querySelector('.container')
   html2canvas(document.body, {
-    scale: 2, // 使用设备的像素比
+    scale: window.devicePixelRatio * 2, // 使用设备的像素比 * 2
   }).then(canvas => {
-    console.log('canvas', canvas.height)
     ele.appendChild(canvas)
   })
 }
