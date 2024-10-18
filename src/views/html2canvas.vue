@@ -15,7 +15,7 @@ import html2canvas from 'html2canvas'
 // html2canvas(element, options)
 const capture = () => {
   const ele = document.querySelector('.container')
-  html2canvas(ele, {
+  html2canvas(document.body, {
     scale: window.devicePixelRatio * 2, // 使用设备的像素比 * 2
   }).then(canvas => {
     ele.appendChild(canvas)
@@ -37,12 +37,7 @@ onBeforeMount(() => {
 })
 </script>
 <style lang="less" scoped>
-@width: 800px;
 .container {
-  width: @width;
-  margin: 0 auto;
-  padding: 10px;
-
   .btn {
     display: inline-block;
     padding: 8px 12px;
