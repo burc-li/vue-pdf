@@ -82,17 +82,19 @@ const downLoadPdf = () => {
 > canvas也有最大高度限制 32767像素，如果页面过长的话，通过 html2canvas 生成 canvas会失败
 
 ```javascript
-const downLoadPdf = () => {
+const downLoadPdfSingle = () => {
   html2canvas(document.body).then(canvas => {
     // 返回图片dataURL，参数：图片格式和清晰度(0-1)
     const pageData = canvas.toDataURL('image/jpeg', 1.0)
 
     // 方向纵向，尺寸ponits，纸张格式 a4 即 [595.28, 841.89]
-    const pageWidth = 595.28
-    const pdf = new jsPDF('portrait', 'pt', [
-      pageWidth,
-      (pageWidth * canvas.height) / canvas.width,
-    ])
+    const A4Width = 595.28
+    const A4Height = 841.89 // A4纸宽
+    const pageHeight =
+      A4Height >= (A4Width * canvas.height) / canvas.width
+        ? A4Height
+        : (A4Width * canvas.height) / canvas.width
+    const pdf = new jsPDF('portrait', 'pt', [A4Width, pageHeight])
 
     // addImage后两个参数控制添加图片的尺寸，此处将页面高度按照a4纸宽高比列进行压缩
     pdf.addImage(
@@ -100,8 +102,8 @@ const downLoadPdf = () => {
       'JPEG',
       0,
       0,
-      pageWidth,
-      (pageWidth * canvas.height) / canvas.width,
+      A4Width,
+      (A4Width * canvas.height) / canvas.width,
     )
     pdf.save('单页下载.pdf')
   })
