@@ -17,7 +17,9 @@ import { jsPDF } from 'jspdf'
 // 一张长长的PDF
 const downLoadPdfSingle = () => {
   const ele = document.querySelector('.container')
-  html2canvas(ele).then(canvas => {
+  html2canvas(ele, {
+    scale: window.devicePixelRatio * 2, // 使用设备的像素比 * 2
+  }).then(canvas => {
     // 返回图片dataURL，参数：图片格式和清晰度(0-1)
     const pageData = canvas.toDataURL('image/jpeg', 1.0)
 
