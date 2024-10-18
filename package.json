@@ -2,15 +2,16 @@
   "name": "vue-pdf",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "dev": "vite",
+    "format": "prettier --write src/",
+    "preview": "vite preview"
   },
   "dependencies": {
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.2",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
@@ -20,7 +21,11 @@
     "@vue/eslint-config-prettier": "^10.0.0",
     "eslint": "^9.12.0",
     "eslint-plugin-vue": "^9.29.0",
+    "less": "^4.2.0",
+    "less-loader": "^12.2.0",
     "prettier": "^3.3.3",
-    "vite": "^5.4.8"
-  }
+    "vite": "^5.4.8",
+    "vue-cli-plugin-style-resources-loader": "~0.1.5"
+  },
+  "type": "module"
 }
